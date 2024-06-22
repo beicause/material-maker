@@ -37,16 +37,16 @@ func _ready():
 	update_export_menu()
 
 func update_view_menu() -> void:
-	$ContextMenu.add_submenu_item("View", "View")
+	$ContextMenu.add_submenu_node_item("View", $ContextMenu/View)
 
 func update_Guides_menu() -> void:
 	$ContextMenu/Guides.clear()
 	for s in $Guides.STYLES:
 		$ContextMenu/Guides.add_item(s)
-	$ContextMenu/Guides.add_submenu_item("Grid", "Grid")
+	$ContextMenu/Guides.add_submenu_node_item("Grid", $ContextMenu/Guides/Grid)
 	$ContextMenu/Guides.add_separator()
 	$ContextMenu/Guides.add_item("Change color", 1000)
-	$ContextMenu.add_submenu_item("Guides", "Guides")
+	$ContextMenu.add_submenu_node_item("Guides", $ContextMenu/Guides)
 	if mm_globals.has_config("preview"+config_var_suffix+"_view_mode"):
 		_on_View_id_pressed(mm_globals.get_config("preview"+config_var_suffix+"_view_mode"))
 	if mm_globals.has_config("preview"+config_var_suffix+"_view_postprocess"):
@@ -56,7 +56,7 @@ func update_postprocess_menu() -> void:
 	$ContextMenu/PostProcess.clear()
 	for o in POSTPROCESS_OPTIONS:
 		$ContextMenu/PostProcess.add_item(o.name)
-	$ContextMenu.add_submenu_item("Post Process", "PostProcess")
+	$ContextMenu.add_submenu_node_item("Post Process", $ContextMenu/PostProcess)
 
 func get_shader_custom_functions():
 	return "vec4 preview_2d_postprocessed(vec2 uv) { return %s; }\n" % POSTPROCESS_OPTIONS[current_postprocess_option].function
